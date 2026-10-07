@@ -32,3 +32,7 @@ include path and compile `..\fb2k-common\src\cover_accent.cpp` into the componen
 `golden_test` (the user's real covers, listed in the uncommitted `test\local\covers.txt`,
 against `test\local\golden.txt`; `build_tests.bat --update` rewrites it after a deliberate
 change). Output in `test\tests.out`.
+
+## License
+
+[MIT](LICENSE)
