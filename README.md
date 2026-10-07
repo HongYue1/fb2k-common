@@ -1,10 +1,9 @@
 # fb2k-common
 
-Code shared by the foobar2000 components in this workspace (foo_bettertabs,
-foo_enhancedplaylisttabs, foo_mediabar, foo_onscreendisplay). No foobar2000 SDK or
-Windows dependency: plain C++20, header-only except `src/cover_accent.cpp`.
+Shared code for my foobar2000 components. Plain C++20 with no SDK or Windows dependency,
+header-only except `src/cover_accent.cpp`.
 
-Components use it as a sibling checkout, like the SDK: add `..\fb2k-common\include` to the
+My components use it as a sibling checkout, like the SDK: add `..\fb2k-common\include` to the
 include path and compile `..\fb2k-common\src\cover_accent.cpp` into the component.
 
 | File | What |
