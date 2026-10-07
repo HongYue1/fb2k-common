@@ -1,0 +1,6 @@
+# Git's autocrlf is on for this machine, which would rewrite these files on the
+# next checkout. Pin line endings instead so diffs stay meaningful.
+* text=auto eol=lf
+
+# Windows tooling expects CRLF here.
+*.bat text eol=crlf
