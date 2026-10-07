@@ -13,6 +13,7 @@ include path and compile the `src\*.cpp` files they need into the component.
 | `include/fbc/colour.h` | OKLab, sRGB gamut, WCAG 2 and APCA contrast, cover colour -> accent / fill / text |
 | `include/fbc/cover_accent.h`, `src/cover_accent.cpp` | The colours of a decoded cover: primary, optional secondary, colourfulness |
 | `include/fbc/image_decoder.h`, `src/image_decoder.cpp` | WIC: encoded bytes -> premultiplied BGRA at a bounded size (Windows) |
+| `include/fbc/fonts.h`, `src/fonts.cpp` | Fonts tab helpers: font and fallback-family pickers, row text, the DirectWrite fallback chain (Windows) |
 | `include/fbc/cover_hub.h`, `src/cover_hub.cpp` | The now-playing cover's colours for subscribers: art notify, decode on a worker, small cache (SDK) |
 
 ## Colour pipeline
