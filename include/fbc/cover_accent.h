@@ -36,5 +36,9 @@ struct CoverColours {
 
 //! Nothing when the image has no opaque pixels.
 [[nodiscard]] std::optional<CoverColours> cover_colours(const DecodedImage& image) noexcept;
+//! The same over pixels the caller owns: `width` x `height` premultiplied BGRA, tightly packed
+//! (also GDI+'s PixelFormat32bppPARGB read as bytes). No copy.
+[[nodiscard]] std::optional<CoverColours> cover_colours(const std::uint8_t* pbgra, std::uint32_t width,
+                                                        std::uint32_t height) noexcept;
 
 } // namespace fbc

@@ -82,6 +82,12 @@ struct Bin {
 // A cover with almost no colourful pixels answers with its dominant grey.
 std::optional<CoverColours> cover_colours(const DecodedImage& image) noexcept {
     if (!image.valid()) return std::nullopt;
+    return cover_colours(image.pixels.data(), image.width, image.height);
+}
+
+std::optional<CoverColours> cover_colours(const std::uint8_t* pbgra, std::uint32_t image_width,
+                                          std::uint32_t image_height) noexcept {
+    if (pbgra == nullptr || image_width == 0 || image_height == 0) return std::nullopt;
 
     const auto& to_linear = col::linear_lut();
     std::array<Bin, hue_bins> hues{};
@@ -89,15 +95,15 @@ std::optional<CoverColours> cover_colours(const DecodedImage& image) noexcept {
     double total = 0.0;
     double colourful = 0.0;
 
-    const std::size_t width = image.width;
-    const std::size_t height = image.height;
+    const std::size_t width = image_width;
+    const std::size_t height = image_height;
     // A square grid, not every n-th pixel: a stride that divides the width samples the same few
     // columns on every row.
     const std::size_t step = (std::max<std::size_t>)(
         1, static_cast<std::size_t>(std::lround(std::sqrt(static_cast<double>(width * height) / max_samples))));
     const float half_w = static_cast<float>(width) * 0.5f;
     const float half_h = static_cast<float>(height) * 0.5f;
-    const std::uint8_t* const data = image.pixels.data();
+    const std::uint8_t* const data = pbgra;
 
     for (std::size_t y = step / 2; y < height; y += step) {
         for (std::size_t x = step / 2; x < width; x += step) {
