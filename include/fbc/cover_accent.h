@@ -32,7 +32,18 @@ struct CoverColours {
     //! How colourful the cover is, 0 (greyscale) .. 1 (most of it vivid). Hosts can use it to
     //! skip tinting large areas for a nearly grey cover.
     float colourfulness{0.0f};
+
+    [[nodiscard]] bool operator==(const CoverColours&) const = default;
 };
+
+//! How much of a cover-derived tint to put on a large area (a strip or card background), 0..1
+//! from colourfulness: none below 0.05, all of it from 0.15, smooth between. About a third of
+//! real covers are nearly grey; tinting with them gives a muddy grey-brown, not a colour.
+//! Accents (lines, glyphs) do not need this: they are small and get their own legibility rules.
+[[nodiscard]] inline float tint_weight(float colourfulness) noexcept {
+    const float x = colourfulness <= 0.05f ? 0.0f : colourfulness >= 0.15f ? 1.0f : (colourfulness - 0.05f) / 0.10f;
+    return x * x * (3.0f - 2.0f * x);
+}
 
 //! Nothing when the image has no opaque pixels.
 [[nodiscard]] std::optional<CoverColours> cover_colours(const DecodedImage& image) noexcept;

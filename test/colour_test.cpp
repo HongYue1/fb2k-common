@@ -169,6 +169,10 @@ int main() {
         check(khaki && hue_distance(khaki->primary, 0x2A7BF0u) < 15.0f, "a vivid blue beats khaki");
     }
 
+    check(tint_weight(0.0f) == 0.0f && tint_weight(0.05f) == 0.0f && tint_weight(0.15f) == 1.0f &&
+              std::fabs(tint_weight(0.10f) - 0.5f) < 1e-4f && tint_weight(1.0f) == 1.0f,
+          "tint_weight");
+
     // Translucent covers: nothing opaque means no colour, not a guess.
     {
         DecodedImage clear = make_cover(covers[0]);
