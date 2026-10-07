@@ -1,15 +1,19 @@
 # fb2k-common
 
-Shared code for my foobar2000 components. Plain C++20 with no SDK or Windows dependency,
-header-only except `src/cover_accent.cpp`.
+Code shared by the foobar2000 components in this workspace (foo_bettertabs,
+foo_enhancedplaylisttabs, foo_mediabar, foo_onscreendisplay). The colour code is plain C++20
+with no foobar2000 SDK or Windows dependency; the image decoder needs Windows (WIC) and the
+cover hub needs the SDK as well.
 
-My components use it as a sibling checkout, like the SDK: add `..\fb2k-common\include` to the
-include path and compile `..\fb2k-common\src\cover_accent.cpp` into the component.
+Components use it as a sibling checkout, like the SDK: add `..\fb2k-common\include` to the
+include path and compile the `src\*.cpp` files they need into the component.
 
 | File | What |
 | --- | --- |
 | `include/fbc/colour.h` | OKLab, sRGB gamut, WCAG 2 and APCA contrast, cover colour -> accent / fill / text |
 | `include/fbc/cover_accent.h`, `src/cover_accent.cpp` | The colours of a decoded cover: primary, optional secondary, colourfulness |
+| `include/fbc/image_decoder.h`, `src/image_decoder.cpp` | WIC: encoded bytes -> premultiplied BGRA at a bounded size (Windows) |
+| `include/fbc/cover_hub.h`, `src/cover_hub.cpp` | The now-playing cover's colours for subscribers: art notify, decode on a worker, small cache (SDK) |
 
 ## Colour pipeline
 
@@ -31,7 +35,3 @@ include path and compile `..\fb2k-common\src\cover_accent.cpp` into the componen
 `golden_test` (the user's real covers, listed in the uncommitted `test\local\covers.txt`,
 against `test\local\golden.txt`; `build_tests.bat --update` rewrites it after a deliberate
 change). Output in `test\tests.out`.
-
-## License
-
-[MIT](LICENSE)
